@@ -16,8 +16,8 @@ export default class Home extends Component {
                 <ScrollView>
                     <Carousel/>
                     <MenuView navigate={this.props.navigation.navigate}/>
-                    <View style={{height: 1000}}/>
-                    <Text>Home</Text>
+                    <CarLabelView label={"新车上架"} color={"#55ff88"}/>
+                    <CarLabelView label={"超级试驾"} color={"#ee6688"}/>
                 </ScrollView>
             </SafeAreaView>
         )

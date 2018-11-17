@@ -1,11 +1,5 @@
 import React ,{Component} from "react";
-import {View,Text,StyleSheet,Image,Button,TextInput,TouchableOpacity} from "react-native";
-import Icon from "react-native-vector-icons/AntDesign";
-
-import {
-    DrawerNavigator ,
-    DrawerItems ,
-} from 'react-navigation';
+import {View,StyleSheet,Image,Button,TextInput,TouchableOpacity} from "react-native";
 
 
 export default class SideAndSearch extends Component {
@@ -20,7 +14,6 @@ export default class SideAndSearch extends Component {
     render() {
         return (
             <View style={{flexDirection:'row',justifyContent:"center",alignItems:"center"}}>
-                <Button title="门店" />
                 <TextInput
                     style={styles.topInput}
                     onChangeText={(searchValue) => this.setState({searchValue})}
@@ -52,6 +45,6 @@ const styles =StyleSheet.create({
         height:25,
         marginLeft:10
     }
-})
+});
 
-const phoneIcon = require('../../res/image/homeModel/phone.png')
+const phoneIcon = require('../../res/image/homeModel/phone.png');

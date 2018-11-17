@@ -4,3 +4,4 @@ import React from "react";
 
 export const imageUri = "http://mlshopimage.oss-cn-shanghai.aliyuncs.com/";
 export const {width} = Dimensions.get("window");
+export const shopId ="kjos_klpE6eTKiE_JEXE_1A05";
