@@ -13,7 +13,7 @@ import SmallView from "../component/SmallView"
 
 let label ;
 export default class CarLabelView extends Component {
-    
+
     render() {
         label = this.props.label;
         const CarView = GetCarLabelList();
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     more: {
         backgroundColor: "white",
         borderRadius: 12,
-        height: 24,
+        height: 20,
         marginRight: 20,
         alignItems: "center",
         justifyContent: "center",

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {View, Text, StyleSheet, TouchableOpacity, Image, Dimensions} from "react-native";
-import NewCar from "../newCar/NewCar";
+import NewCar from "../newCar/CarView";
 
 
 const {width} = Dimensions.get("window");

@@ -1,6 +1,6 @@
 import React ,{Component} from "react";
-import {View,StyleSheet,Image,Button,TextInput,TouchableOpacity} from "react-native";
-
+import {View,StyleSheet,Image,TextInput,TouchableOpacity,Text} from "react-native";
+import {width} from "../config";
 
 export default class SideAndSearch extends Component {
 
@@ -14,6 +14,11 @@ export default class SideAndSearch extends Component {
     render() {
         return (
             <View style={{flexDirection:'row',justifyContent:"center",alignItems:"center"}}>
+                <TouchableOpacity>
+                    <Text style={styles.shopName}>
+                        门店
+                    </Text>
+                </TouchableOpacity>
                 <TextInput
                     style={styles.topInput}
                     onChangeText={(searchValue) => this.setState({searchValue})}
@@ -44,6 +49,9 @@ const styles =StyleSheet.create({
         width:25,
         height:25,
         marginLeft:10
+    },
+    shopName:{
+        marginRight: width*0.03,
     }
 });
 
