@@ -18,6 +18,7 @@ export default class Home extends Component {
                     <MenuView navigate={this.props.navigation.navigate}/>
                     <CarLabelView label={"新车上架"} color={"#55ff88"}/>
                     <CarLabelView label={"超级试驾"} color={"#ee6688"}/>
+                    <CarLabelView label={"0首付"} color={"#55ddff"}/>
                 </ScrollView>
             </SafeAreaView>
         )

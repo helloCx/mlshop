@@ -38,7 +38,6 @@ export default class Login extends Component {
             }
             this.props.navigation.navigate("Home");
             console.log(res);
-
         });
     }
 

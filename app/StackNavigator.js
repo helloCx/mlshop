@@ -27,7 +27,7 @@ const Stack = createStackNavigator(
         }
     },
     {
-        initialRouteName: "Login"
+        initialRouteName: "Main"
     });
 
 export default class StackNavigator extends Component {

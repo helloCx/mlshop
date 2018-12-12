@@ -7,70 +7,80 @@ import {
     Text,
 } from 'react-native';
 import {imageUri, width} from "../config"
-import  {getCarLabelList} from "../api/homeQL"
+import {getCarLabelList} from "../api/homeQL"
 import {Query} from "react-apollo";
 import SmallView from "../component/SmallView"
 
-let label ;
+let label;
 export default class CarLabelView extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            disabled: false
+        }
+    }
 
     render() {
         label = this.props.label;
+        const GetCarLabelList = () => {
+            const paginator = {
+                page: "1",
+                size: "5"
+            };
+            const qfilter = handleFilter(label);
+            return (
+                <Query query={getCarLabelList}  variables={{paginator, qfilter}}>
+                    {
+                        ({loading, error, data}) => {
+                            if (loading) return null;
+                            if (error) {
+                                console.log(error);
+                                return null;
+                            }
+                            if (data) {
+                                console.log(data.VehiclePriceList.content);
+                                if (data.VehiclePriceList.content !== null) {
+                                    return (
+
+                                                <FlatList
+                                                    keyExtractor={(item, index) => index}
+                                                    data={data.VehiclePriceList.content}
+                                                    renderItem={(data) => handleCarLabelList(data)}
+                                                    horizontal
+                                                    showsHorizontalScrollIndicator={false}
+                                                />
+                                    )
+                                }
+                                else {
+                                    return null;
+                                }
+                            }
+                        }
+
+                    }
+                </Query>
+            )
+        };
         const CarView = GetCarLabelList();
-        if (CarView === null) {
-            return null;
-        }
-        return (
-            <View style={{alignItems: "center"}}>
-                <View style={{width: width * 0.96}}>
-                    <View style={[styles.container, {backgroundColor: this.props.color}]}>
-                        <Text style={styles.labelTitle}>{label}</Text>
-                        <View style={styles.more}>
-                            <Text style={{fontSize: 16}}>{"更多车型"}</Text>
+        if (CarView !== null) {
+            return (
+                <View style={{alignItems: "center"}}>
+                    <View style={{width: width * 0.96}}>
+                        <View style={[styles.container, {backgroundColor: this.props.color}]}>
+                            <Text style={styles.labelTitle}>{label}</Text>
+                            <View style={styles.more}>
+                                <Text style={{fontSize: 16}}>{"更多车型"}</Text>
+                            </View>
                         </View>
+                        <View>{CarView}</View>
                     </View>
-                    <View>{CarView}</View>
                 </View>
-            </View>
-        )
+            )
+        }
+
     }
-
 }
-
-
-const GetCarLabelList = () => {
-    const paginator = {
-        page: "1",
-        size: "5"
-    };
-    const qfilter = handleFilter(label);
-    return (
-        <Query query={getCarLabelList} variables={{paginator, qfilter}}>
-            {
-                ({loading, error, data}) => {
-                    if (loading) return null;
-                    if (error) {
-                        console.log(error);
-                        return null;
-                    }
-                    if (data) {
-                        console.log(data);
-                        return (
-                                <FlatList
-                                    keyExtractor={(item, index) => index}
-                                    data={data.VehiclePriceList.content}
-                                    renderItem={(data) => handleCarLabelList(data)}
-                                    horizontal
-                                    showsHorizontalScrollIndicator={false}
-                                />
-                        )
-                    }
-                }
-
-            }
-        </Query>
-    )
-};
 
 
 const handleCarLabelList = (data) => {
@@ -82,11 +92,11 @@ const handleCarLabelList = (data) => {
             <View style={styles.leftView}>
                 <SmallView smallLabel={carInfo.label}/>
                 <View>
-                    <Text style={{marginTop:2}}>
+                    <Text style={{marginTop: 2}}>
                         {rs[0]}
                     </Text>
-                    <Text style={{fontSize:11,marginTop:2,color:"#666666"}}>
-                        {rs[1]+" "+rs[2]}
+                    <Text style={{fontSize: 11, marginTop: 2, color: "#666666"}}>
+                        {rs[1] + " " + rs[2]}
                     </Text>
 
                 </View>
@@ -102,25 +112,21 @@ const handleCarLabelList = (data) => {
 };
 
 
-const handleFilter = (label)=>{
-  return  {
+const handleFilter = (label) => {
+    return {
+      //  qfilter.eq("shop.id","kjos_klpE6eTKiE_JEXE_1A05").or().eq("")
         "key": "shop.id",
         "value": "kjos_klpE6eTKiE_JEXE_1A05",
         "operator": "EQUEAL",
         "combinator": "AND",
         "next": {
-        "key": "disabled",
-            "value": "false",
-            "operator": "EQUEAL",
-            "combinator": "AND",
-            "next": {
-            "key": "carInfo.label",
+                "key": "carInfo.label",
                 "value": label,
                 "operator": "EQUEAL"
-        }
-    }
+            }
+
     };
-}
+};
 
 
 const styles = StyleSheet.create({
@@ -139,27 +145,27 @@ const styles = StyleSheet.create({
     more: {
         backgroundColor: "white",
         borderRadius: 12,
-        height: 20,
+        height: 24,
         marginRight: 20,
         alignItems: "center",
         justifyContent: "center",
         width: 80
     },
-    image:{
-        height:60,
-        width:width*0.26,
+    image: {
+        height: 60,
+        width: width * 0.26,
         marginLeft: 4,
     },
-    car:{
-        width:width*0.46,
-        flexDirection:"row",
-        justifyContent:"space-between",
-        height:80,
-        alignItems:"center",
-        marginRight:12
+    car: {
+        width: width * 0.46,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        height: 80,
+        alignItems: "center",
+        marginRight: 12
     },
-    leftView:{
-        width:width*0.16,
+    leftView: {
+        width: width * 0.16,
         marginRight: 5,
     }
 });
